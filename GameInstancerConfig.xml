@@ -1,0 +1,6 @@
+<Games>
+	<Game Name="Phantom Breaker: Battle Grounds" ImagePath="PutPathToImageHere" Path="PutPathHere">
+    <!--Delay: this is the delay in milisecons for this process after if you timing aline not perfect thougth-->
+		<AddtionalExeStart Path="PutPathHere" Delay="0"/>
+	</Game>
+</Games>

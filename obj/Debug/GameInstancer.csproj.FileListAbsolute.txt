@@ -1,0 +1,6 @@
+C:\Users\Angelo's Tower PC\source\repos\GameStartStopService\GameInstancer\bin\Debug\GameInstancer.dll
+C:\Users\Angelo's Tower PC\source\repos\GameStartStopService\GameInstancer\bin\Debug\GameInstancer.pdb
+C:\Users\Angelo's Tower PC\source\repos\GameStartStopService\GameInstancer\obj\Debug\GameInstancer.csproj.CoreCompileInputs.cache
+C:\Users\Angelo's Tower PC\source\repos\GameStartStopService\GameInstancer\obj\Debug\GameInstancer.dll
+C:\Users\Angelo's Tower PC\source\repos\GameStartStopService\GameInstancer\obj\Debug\GameInstancer.pdb
+C:\Users\Angelo's Tower PC\source\repos\GameStartStopService\GameInstancer\bin\Debug\GameInstancerConfig.xml
