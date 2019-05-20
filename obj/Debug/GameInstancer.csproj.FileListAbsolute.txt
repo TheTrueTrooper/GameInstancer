@@ -4,3 +4,4 @@ C:\Users\Angelo's Tower PC\source\repos\GameStartStopService\GameInstancer\obj\D
 C:\Users\Angelo's Tower PC\source\repos\GameStartStopService\GameInstancer\obj\Debug\GameInstancer.dll
 C:\Users\Angelo's Tower PC\source\repos\GameStartStopService\GameInstancer\obj\Debug\GameInstancer.pdb
 C:\Users\Angelo's Tower PC\source\repos\GameStartStopService\GameInstancer\bin\Debug\GameInstancerConfig.xml
+C:\Users\Angelo's Tower PC\source\repos\GameStartStopService\GameInstancer\obj\Debug\GameInstancer.csprojAssemblyReference.cache

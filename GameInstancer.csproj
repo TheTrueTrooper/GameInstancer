@@ -41,11 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigModels\GamesConfig.cs" />
-    <Compile Include="ConfigModels\Game.cs" />
-    <Compile Include="ConfigModels\GameInstance.cs" />
-    <Compile Include="ConfigModels\OptionalExe.cs" />
-    <Compile Include="ConfigModels\OptionalExeInstance.cs" />
+    <Compile Include="ConfigModels\XMLGamesConfig.cs" />
+    <Compile Include="ConfigModels\ConfigGame.cs" />
+    <Compile Include="ConfigModels\InstanceGame.cs" />
+    <Compile Include="ConfigModels\IGameConfig.cs" />
+    <Compile Include="ConfigModels\ConfigOptionalExe.cs" />
+    <Compile Include="ConfigModels\InstanceOptionalExe.cs" />
     <Compile Include="GameEndedEvent.cs" />
     <Compile Include="GameInstancer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

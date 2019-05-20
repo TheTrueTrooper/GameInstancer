@@ -9,12 +9,24 @@ using System.Runtime.InteropServices;
 
 namespace GameInstancerNS
 {
+    /// <summary>
+    /// a class that handles the games starting and stoping
+    /// </summary>
     public class GameInstancer
     {
         #region Kernel32ExitImport
+        /// <summary>
+        /// Kernal32 fuction import to allow us to grab our applications closing and respond to it as an event
+        /// </summary>
+        /// <param name="CloseEventHandler">the Event or funtion to call</param>
+        /// <param name="add"></param>
+        /// <returns></returns>
         [DllImport("Kernel32")]
-        private static extern bool SetConsoleCtrlHandler(CloseEvent CloseEventHandler, bool add);
+        private static extern bool SetConsoleCtrlHandler(CloseEvent CloseEventHandler, bool add = true);
 
+        /// <summary>
+        /// the Control type pass back based on C++ enums
+        /// </summary>
         enum CtrlType
         {
             CTRL_C_EVENT = 0,
@@ -24,36 +36,36 @@ namespace GameInstancerNS
             CTRL_SHUTDOWN_EVENT = 6
         }
         #endregion
+
+        /// <summary>
+        /// the Event to tye to the sys 32 event is handled inside and passed out through event chaining
+        /// </summary>
+        /// <param name="sig">the systems pass back values</param>
+        /// <returns></returns>
         private delegate bool CloseEvent(CtrlType sig); 
+        /// <summary>
+        /// A instance of the event
+        /// </summary>
         CloseEvent CloseEventHandle;
 
-        GamesConfig Config = new GamesConfig(); 
+        /// <summary>
+        /// the Config to use
+        /// </summary>
+        public IGameConfig Config = new XMLGamesConfig(); 
         
-        public List<Game> Games { get { return ((Game[])Config.Games.ToArray().Clone()).ToList(); } }
+        public List<ConfigGame> Games { get { return ((ConfigGame[])Config.Games.ToArray().Clone()).ToList(); } }
 
-        GameInstance RunningGame = null;
+        InstanceGame RunningGame = null;
 
         public GameInstancer()
         {
             #region Kernel32EventTieing
             CloseEventHandle += new CloseEvent(CloseEventAction);
-            SetConsoleCtrlHandler(CloseEventHandle, true);
+            SetConsoleCtrlHandler(CloseEventHandle);
             #endregion
         }
 
-        public event GameEndedEventHandler GameHasEndedEvent
-        {
-            add
-            {
-                lock (RunningGame)
-                    RunningGame.GameHasEndedEvent += value;
-            }
-            remove
-            {
-                lock(RunningGame)
-                    RunningGame.GameHasEndedEvent -= value;
-            }
-        }
+        public event GameEndedEventHandler GameHasEndedEvent;
 
         public string RunningGameName
         {
@@ -78,18 +90,23 @@ namespace GameInstancerNS
             }
         }
 
-        public void StartGame(GameEndedEventHandler GameHasEndedEvent, int GameNumberToStart = 0)
+        public void StartGame(int GameNumberToStart = 0)
         {
-            RunningGame = new GameInstance(Config[GameNumberToStart]);
-            this.GameHasEndedEvent += GameHasEndedEvent;
+            RunningGame = new InstanceGame(Config[GameNumberToStart]);
+            RunningGame.GameHasEndedEvent += GameEndedEventChain;
             RunningGame.StartGame();
         }
 
-        public void StartGame(GameEndedEventHandler GameHasEndedEvent, string GameNameToStart)
+        public void StartGame(string GameNameToStart)
         {
-            RunningGame = new GameInstance(Config[GameNameToStart]);
-            this.GameHasEndedEvent += GameHasEndedEvent;
+            RunningGame = new InstanceGame(Config[GameNameToStart]);
+            RunningGame.GameHasEndedEvent += GameEndedEventChain;
             RunningGame.StartGame();
+        }
+
+        private void GameEndedEventChain(object sender, GameEndedEventArgs e)
+        {
+            GameHasEndedEvent.Invoke(sender, e);
         }
 
         public void KillGame()
