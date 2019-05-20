@@ -53,10 +53,24 @@ namespace GameInstancerNS
         /// </summary>
         public IGameConfig Config = new XMLGamesConfig(); 
         
-        public List<ConfigGame> Games { get { return ((ConfigGame[])Config.Games.ToArray().Clone()).ToList(); } }
+        /// <summary>
+        /// Gets a list of your games to work with
+        /// </summary>
+        public List<ConfigGame> Games { get { return Config.Games; } }
 
+        /// <summary>
+        /// The last instance runngng on the machine.
+        /// </summary>
         InstanceGame RunningGame = null;
 
+        /// <summary>
+        /// The event to tie to this games end.
+        /// </summary>
+        public event GameEndedEventHandler GameHasEndedEvent;
+
+        /// <summary>
+        /// Builds an instancer with the kernel32's event catch
+        /// </summary>
         public GameInstancer()
         {
             #region Kernel32EventTieing
@@ -65,8 +79,9 @@ namespace GameInstancerNS
             #endregion
         }
 
-        public event GameEndedEventHandler GameHasEndedEvent;
-
+        /// <summary>
+        /// Returns the name of the game running or a sting stating no games are running
+        /// </summary>
         public string RunningGameName
         {
             get
@@ -77,6 +92,9 @@ namespace GameInstancerNS
             }
         }
 
+        /// <summary>
+        /// returns if the game is running or not
+        /// </summary>
         public bool GameIsRunning
         {
             get
@@ -90,6 +108,10 @@ namespace GameInstancerNS
             }
         }
 
+        /// <summary>
+        /// Instances A game  by index with a defualt of the first game avaible
+        /// </summary>
+        /// <param name="GameNumberToStart">The index of the game in the config</param>
         public void StartGame(int GameNumberToStart = 0)
         {
             RunningGame = new InstanceGame(Config[GameNumberToStart]);
@@ -97,6 +119,10 @@ namespace GameInstancerNS
             RunningGame.StartGame();
         }
 
+        /// <summary>
+        /// Instances A game by its name
+        /// </summary>
+        /// <param name="GameNumberToStart">The index of the game in the config</param>
         public void StartGame(string GameNameToStart)
         {
             RunningGame = new InstanceGame(Config[GameNameToStart]);
@@ -104,17 +130,31 @@ namespace GameInstancerNS
             RunningGame.StartGame();
         }
 
+        /// <summary>
+        /// simply an internal invoke to chain events to the outside
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GameEndedEventChain(object sender, GameEndedEventArgs e)
         {
             GameHasEndedEvent.Invoke(sender, e);
         }
 
+        /// <summary>
+        /// Kills the game and removes it from currentRunning
+        /// </summary>
         public void KillGame()
         {
             lock(RunningGame)
                 RunningGame.Kill();
+            RunningGame = null;
         }
 
+        /// <summary>
+        /// The Kern 32 event
+        /// </summary>
+        /// <param name="sig"></param>
+        /// <returns></returns>
         private bool CloseEventAction(CtrlType sig)
         {
             KillGame();
