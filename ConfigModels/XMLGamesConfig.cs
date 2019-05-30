@@ -19,6 +19,7 @@ namespace GameInstancerNS
         const string NameAttribute = "Name";
         const string PathAttribute = "Path";
         const string PlayTimeAttribute = "PlayTime";
+        const string CostToPlayAttribute = "CostToPlay";
         const string ImagePathAttribute = "ImagePath";
         const string DelayAttribute = "Delay";
         const string NotSetError = "On either one of the optional exes or primary game you have left the Path, PlayTime, or Delay empty in the XML config.\nMinimal configuration requires these to be set on each game and their extra exes.\nNote that a value of 0 will be infinite play time or no start delay.";
@@ -50,6 +51,7 @@ namespace GameInstancerNS
                          Path = GameXML.Attribute(PathAttribute)?.Value,
                          ImagePath = GameXML.Attribute(ImagePathAttribute)?.Value,
                          PlayTime = ulongParseOrNull(GameXML.Attribute(PlayTimeAttribute)?.Value),
+                         CostToPlay = IntParseOrNull(GameXML.Attribute(CostToPlayAttribute)?.Value),
                          OptionalExes = (from ExeXML in GameXML.Descendants(AddtionalExeStartNode)
                                          select new ConfigOptionalExe()
                                          {

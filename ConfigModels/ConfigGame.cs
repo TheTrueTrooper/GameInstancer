@@ -28,6 +28,10 @@ namespace GameInstancerNS
         /// The Play time for a game.
         /// </summary>
         public ulong? PlayTime { get; protected internal set; }
+        /// <summary>
+        /// The Cost to Play for a game.
+        /// </summary>
+        public int? CostToPlay { get; protected internal set; }
 
         /// <summary>
         /// The Optional Exes with a game
