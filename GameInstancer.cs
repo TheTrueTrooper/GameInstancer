@@ -43,6 +43,7 @@ namespace GameInstancerNS
         /// <param name="sig">the systems pass back values</param>
         /// <returns></returns>
         private delegate bool CloseEvent(CtrlType sig); 
+
         /// <summary>
         /// A instance of the event
         /// </summary>
@@ -51,7 +52,7 @@ namespace GameInstancerNS
         /// <summary>
         /// the Config to use
         /// </summary>
-        public IGameConfig Config = new XMLGamesConfig(); 
+        public IGameConfig Config = null; 
         
         /// <summary>
         /// Gets a list of your games to work with
@@ -69,10 +70,25 @@ namespace GameInstancerNS
         public event GameEndedEventHandler GameHasEndedEvent;
 
         /// <summary>
+        /// The Event to tie to the game after the start
+        /// </summary>
+        public event GameStartedEventHandler GameHasStartedEvent;
+
+        /// <summary>
+        /// The Event to tie to the game durring start
+        /// </summary>
+        public event GameStartingEventHandler GameIsStartingEvent;
+
+        /// <summary>
         /// Builds an instancer with the kernel32's event catch
         /// </summary>
-        public GameInstancer()
+        public GameInstancer(IGameConfig Config)
         {
+            this.Config = Config;
+
+            if (Config == null)
+                throw new Exception("Not a valid config. Please set to a valid IGameConfig Interface.");
+
             #region Kernel32EventTieing
             CloseEventHandle += new CloseEvent(CloseEventAction);
             SetConsoleCtrlHandler(CloseEventHandle);
@@ -112,22 +128,26 @@ namespace GameInstancerNS
         /// Instances A game  by index with a defualt of the first game avaible
         /// </summary>
         /// <param name="GameNumberToStart">The index of the game in the config</param>
-        public void StartGame(int GameNumberToStart = 0)
+        public void StartGame(object StartRequester, int GameNumberToStart = 0)
         {
+            GameIsStartingEvent.Invoke(this, new GameStartingEventArgs { GameName = Config[GameNumberToStart].Name, RequestingObj = StartRequester });
             RunningGame = new InstanceGame(Config[GameNumberToStart]);
             RunningGame.GameHasEndedEvent += GameEndedEventChain;
             RunningGame.StartGame();
+            GameHasStartedEvent.Invoke(this, new GameStartedEventArgs { GameName = Config[GameNumberToStart].Name });
         }
 
         /// <summary>
         /// Instances A game by its name
         /// </summary>
         /// <param name="GameNumberToStart">The index of the game in the config</param>
-        public void StartGame(string GameNameToStart)
+        public void StartGame(object StartRequester, string GameNameToStart)
         {
+            GameIsStartingEvent.Invoke(this, new GameStartingEventArgs { GameName = GameNameToStart, RequestingObj = StartRequester });
             RunningGame = new InstanceGame(Config[GameNameToStart]);
             RunningGame.GameHasEndedEvent += GameEndedEventChain;
             RunningGame.StartGame();
+            GameHasStartedEvent.Invoke(this, new GameStartedEventArgs { GameName = GameNameToStart });
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,10 +15,17 @@ namespace GameInstancerNS
         /// <summary>
         /// The delay that sould occure if the the exe requires delay
         /// </summary>
+        [JsonProperty("Delay")]
         public int? Delay { get; protected internal set; }
         /// <summary>
         /// The Path to the optional exe
         /// </summary>
+        [JsonProperty("Path")]
         public string Path { get; protected internal set; }
+        /// <summary>
+        /// optional arguments to use when starting the game
+        /// </summary>
+        [JsonProperty("StartOptions")]
+        public string StartOptions { get; protected internal set; }
     }
 }

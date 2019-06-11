@@ -11,12 +11,6 @@ using System.Runtime.InteropServices;
 
 namespace GameInstancerNS
 {
-    /// <summary>
-    /// A call back for the end of a game exe's life
-    /// </summary>
-    /// <param name="sender">a calling GameInstance</param>
-    /// <param name="e"></param>
-    public delegate void GameEndedEventHandler(object sender, GameEndedEventArgs e);
 
     /// <summary>
     /// A class used to start and stop game exes with other optional exes
@@ -126,7 +120,8 @@ namespace GameInstancerNS
             {
                 FileName = Gamer.Path,
                 //UseShellExecute = false,
-                WorkingDirectory = Path.GetDirectoryName(Gamer.Path)
+                WorkingDirectory = Path.GetDirectoryName(Gamer.Path),
+                Arguments = Gamer.StartOptions
             };
             OptionalExes = new InstanceOptionalExe[Gamer.OptionalExes.Count()];
             for (int i = 0; i < Gamer.OptionalExes.Count(); i++)

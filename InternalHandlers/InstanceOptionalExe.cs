@@ -33,7 +33,8 @@ namespace GameInstancerNS
             {
                 FileName = OptionalExe.Path,
                 //UseShellExecute = false,
-                WorkingDirectory = Path.GetDirectoryName(OptionalExe.Path)
+                WorkingDirectory = Path.GetDirectoryName(OptionalExe.Path),
+                Arguments = OptionalExe.StartOptions
             };
         }
 

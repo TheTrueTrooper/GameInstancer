@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,14 +44,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigModels\XMLGamesConfig.cs" />
     <Compile Include="ConfigModels\ConfigGame.cs" />
-    <Compile Include="ConfigModels\InstanceGame.cs" />
-    <Compile Include="ConfigModels\IGameConfig.cs" />
     <Compile Include="ConfigModels\ConfigOptionalExe.cs" />
-    <Compile Include="ConfigModels\InstanceOptionalExe.cs" />
-    <Compile Include="GameEndedEvent.cs" />
+    <Compile Include="IGameConfigInterfaces\JSONGamesConfig.cs" />
+    <Compile Include="IGameConfigInterfaces\XMLGamesConfig.cs" />
+    <Compile Include="IGameConfigInterfaces\IGameConfig.cs" />
+    <Compile Include="Events\GameStartingEvent.cs" />
+    <Compile Include="Events\GameStartedEvent.cs" />
+    <Compile Include="Events\GameEndedEvent.cs" />
+    <Compile Include="Events\PublicEventHandlers.cs" />
     <Compile Include="GameInstancer.cs" />
+    <Compile Include="InternalHandlers\InstanceGame.cs" />
+    <Compile Include="InternalHandlers\InstanceOptionalExe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -57,5 +64,12 @@
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="GameInstancerConfig.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
