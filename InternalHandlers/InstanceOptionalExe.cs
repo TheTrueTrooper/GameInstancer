@@ -25,7 +25,7 @@ namespace GameInstancerNS
         /// creates an optional Exe Instance
         /// </summary>
         /// <param name="OptionalExe">based on OptionalExe</param>
-        protected internal InstanceOptionalExe(ConfigOptionalExe OptionalExe)
+        protected internal InstanceOptionalExe(IOptionalAddtionalExeStartsModel OptionalExe)
         {
             Delay = OptionalExe.Delay.Value;
             this.OptionalExe = new Process();

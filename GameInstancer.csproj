@@ -44,8 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigModels\ConfigGame.cs" />
-    <Compile Include="ConfigModels\ConfigOptionalExe.cs" />
+    <Compile Include="ConfigModels\ConfigGameModel.cs" />
+    <Compile Include="ConfigModels\ConfigOptionalAddtionalExeStartsModel.cs" />
+    <Compile Include="ConfigModels\IGameModel.cs" />
+    <Compile Include="ConfigModels\IOptionalAddtionalExeStartsModel.cs" />
     <Compile Include="IGameConfigInterfaces\JSONGamesConfig.cs" />
     <Compile Include="IGameConfigInterfaces\XMLGamesConfig.cs" />
     <Compile Include="IGameConfigInterfaces\IGameConfig.cs" />
@@ -60,7 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="GameInstancerConfig.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>

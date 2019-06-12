@@ -57,7 +57,7 @@ namespace GameInstancerNS
         /// <summary>
         /// Gets a list of your games to work with
         /// </summary>
-        public List<ConfigGame> Games { get { return Config.Games; } }
+        public List<IGameModel> Games { get { return Config.Games; } }
 
         /// <summary>
         /// The last instance runngng on the machine.

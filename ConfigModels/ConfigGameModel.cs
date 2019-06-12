@@ -9,10 +9,15 @@ using System.Xml.Linq;
 namespace GameInstancerNS
 {
     /// <summary>
-    /// A class to hold Game info in volitie memory
+    /// A Basic class to hold Game info in volitie memory
     /// </summary>
-    public class ConfigGame
+    public class ConfigGameModel : IGameModel
     {
+        /// <summary>
+        /// the Databases ID or specified via the config file
+        /// </summary>
+        [JsonProperty("ID")]
+        public int? ID { get; protected internal set; }
         /// <summary>
         /// The Name of the game.
         /// </summary>
@@ -46,8 +51,12 @@ namespace GameInstancerNS
         /// <summary>
         /// The Optional Exes with a game
         /// </summary>
-        [JsonProperty("OptionalExes")]
-        public List<ConfigOptionalExe> OptionalExes { protected internal set; get; } = new List<ConfigOptionalExe>();
+        [JsonProperty("OptionalAddtionalExeStarts")]
+        public List<ConfigOptionalAddtionalExeStartsModel> OptionalAddtionalExeStartsRaw { protected internal set; get; } = new List<ConfigOptionalAddtionalExeStartsModel>();
+
+        public List<IOptionalAddtionalExeStartsModel> IOptionalAddtionalExeStarts { get => OptionalAddtionalExeStartsRaw.Cast<IOptionalAddtionalExeStartsModel>().ToList(); set => OptionalAddtionalExeStartsRaw = value.Cast<ConfigOptionalAddtionalExeStartsModel>().ToList(); }
+
+
     }
 
 //    [

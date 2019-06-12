@@ -111,7 +111,7 @@ namespace GameInstancerNS
         /// </summary>
         /// <param name="Gamer"></param>
         /// <param name="ThreadStartExtraDelay"></param>
-        protected internal InstanceGame(ConfigGame Gamer, int ThreadStartExtraDelay = 5000)
+        protected internal InstanceGame(IGameModel Gamer, int ThreadStartExtraDelay = 5000)
         {
             PrimaryGameExe = new Process();
             PlayTimeAllowed = Gamer.PlayTime.Value;
@@ -123,10 +123,10 @@ namespace GameInstancerNS
                 WorkingDirectory = Path.GetDirectoryName(Gamer.Path),
                 Arguments = Gamer.StartOptions
             };
-            OptionalExes = new InstanceOptionalExe[Gamer.OptionalExes.Count()];
-            for (int i = 0; i < Gamer.OptionalExes.Count(); i++)
+            OptionalExes = new InstanceOptionalExe[Gamer.IOptionalAddtionalExeStarts.Count()];
+            for (int i = 0; i < Gamer.IOptionalAddtionalExeStarts.Count(); i++)
             {
-                OptionalExes[i] = new InstanceOptionalExe(Gamer.OptionalExes[i]);
+                OptionalExes[i] = new InstanceOptionalExe(Gamer.IOptionalAddtionalExeStarts[i]);
             }
         }
 

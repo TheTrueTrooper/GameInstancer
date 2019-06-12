@@ -18,18 +18,18 @@ namespace GameInstancerNS
         /// </summary>
         /// <param name="StartGameName"> the sting name of the game in config</param>
         /// <returns>the Game (config info)</returns>
-        ConfigGame this[string StartGameName] { get; }
+        IGameModel this[string StartGameName] { get; }
 
         /// <summary>
         /// an accessor to get the Game by entry number
         /// </summary>
-        /// <param name="Index">it's number in the config list(based on processing in XML)</param>
+        /// <param name="ID">it's number in the config list(based Database ID)</param>
         /// <returns>the Game (config info)</returns>
-        ConfigGame this[int Index] { get; }
+        IGameModel this[int ID] { get; }
 
         /// <summary>
         /// Should get the list of games this sould be only implemented as a getter
         /// </summary>
-        List<ConfigGame> Games { get; }
+        List<IGameModel> Games { get; }
     }
 }

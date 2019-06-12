@@ -14,31 +14,22 @@ namespace GameInstancerNS
     public sealed class JSONGamesConfig : IGameConfig
     {
         public static string ConfigFile = "GameInstancerConfig.json";
-        const string RootNode = "Games";
-        const string AGameNode = "Game";
-        const string AddtionalExeStartNode = "AddtionalExeStart";
-        const string NameAttribute = "Name";
-        const string PathAttribute = "Path";
-        const string PlayTimeAttribute = "PlayTime";
-        const string CostToPlayAttribute = "CostToPlay";
-        const string ImagePathAttribute = "ImagePath";
-        const string DelayAttribute = "Delay";
         const string NotSetError = "On either one of the optional exes or primary game you have left the Path, PlayTime, or Delay empty in the XML config.\nMinimal configuration requires these to be set on each game and their extra exes.\nNote that a value of 0 will be infinite play time or no start delay.";
 
-        public List<ConfigGame> Games { private set; get; }
+        public List<IGameModel> Games { private set; get; } = new List<IGameModel>();
 
-        public ConfigGame this[string StartGameName]
+        public IGameModel this[string StartGameName]
         {
             get {
                 return Games.Where(x => x.Name == StartGameName).FirstOrDefault();
             }
         }
 
-        public ConfigGame this[int Index]
+        public IGameModel this[int ID]
         {
             get
             {
-                return Games[Index];
+                return Games.Where(x => x.ID == ID).FirstOrDefault();
             }
         }
 
@@ -51,13 +42,14 @@ namespace GameInstancerNS
             using (JsonReader reader = new JsonTextReader(sr))
             {
                 JsonSerializer serializer = new JsonSerializer();
-
+                List<ConfigGameModel> ScopedList = serializer.Deserialize<List<ConfigGameModel>>(reader).ToList();
                 // read the json from a stream
                 // json size doesn't matter because only a small piece is read at a time from the HTTP request
-                Games = serializer.Deserialize<List<ConfigGame>>(reader).ToList();
+                foreach (ConfigGameModel CGM in ScopedList)
+                    Games.Add(CGM);
             }
 
-            if (Games.Any(x => x.Path == null || x.PlayTime == null || x.OptionalExes.Any(j => j.Path == null || j.Delay == null)))
+            if (Games.Any(x => x.ID == null || x.Path == null || x.PlayTime == null || x.IOptionalAddtionalExeStarts.Any(j => j.Path == null || j.Delay == null)))
                 throw new Exception(NotSetError);
         }
 

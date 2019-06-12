@@ -8,24 +8,21 @@ using System.Threading.Tasks;
 namespace GameInstancerNS
 {
     /// <summary>
-    /// A class that holds the volitile data for OptionalExe
+    /// A Implmentable interface for game model's OptionalAddtionalExeStartsModel
     /// </summary>
-    public class ConfigOptionalExe
+    public interface IOptionalAddtionalExeStartsModel
     {
         /// <summary>
         /// The delay that sould occure if the the exe requires delay
         /// </summary>
-        [JsonProperty("Delay")]
-        public int? Delay { get; protected internal set; }
+        int? Delay { get; }
         /// <summary>
         /// The Path to the optional exe
         /// </summary>
-        [JsonProperty("Path")]
-        public string Path { get; protected internal set; }
+        string Path { get; }
         /// <summary>
         /// optional arguments to use when starting the game
         /// </summary>
-        [JsonProperty("StartOptions")]
-        public string StartOptions { get; protected internal set; }
+        string StartOptions { get; }
     }
 }
