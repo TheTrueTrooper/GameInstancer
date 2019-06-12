@@ -42,7 +42,7 @@ namespace GameInstancerNS
         /// The Cost to Play for a game.
         /// </summary>
         [JsonProperty("CostToPlay")]
-        public int? CostToPlay { get; protected internal set; }
+        public double? CostToPlay { get; protected internal set; }
         /// <summary>
         /// optional arguments to use when starting the game
         /// </summary>

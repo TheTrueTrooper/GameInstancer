@@ -34,7 +34,7 @@ namespace GameInstancerNS
         /// <summary>
         /// The Cost to Play for a game.
         /// </summary>
-        int? CostToPlay { get; }
+        double? CostToPlay { get; }
         /// <summary>
         /// optional arguments to use when starting the game
         /// </summary>
