@@ -53,28 +53,5 @@ namespace GameInstancerNS
                 throw new Exception(NotSetError);
         }
 
-        int? IntParseOrNull(string ParseString)
-        {
-            try
-            {
-                return int.Parse(ParseString);
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        ulong? ulongParseOrNull(string ParseString)
-        {
-            try
-            {
-                return ulong.Parse(ParseString);
-            }
-            catch
-            {
-                return null;
-            }
-        }
     }
 }

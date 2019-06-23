@@ -59,7 +59,7 @@ namespace GameInstancerNS
 
     }
 
-//    [
+//[
 //  {
 //    "Name": "Phantom Breaker: Battle Grounds",
 //    "Path": "I:\\Games\\Steam\\steamapps\\common\\Phantom Breaker Battle Grounds\\bin\\pbbg_win32.exe",

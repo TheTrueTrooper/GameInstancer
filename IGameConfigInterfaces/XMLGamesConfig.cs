@@ -16,9 +16,9 @@ namespace GameInstancerNS
     {
         const string ConfigFile = "GameInstancerConfig.xml";
         const string RootNode = "Games";
-        const string IDNode = "ID";
         const string AGameNode = "Game";
         const string AddtionalExeStartNode = "OptionalAddtionalExeStarts";
+        const string IDAttribute = "ID";
         const string NameAttribute = "Name";
         const string PathAttribute = "Path";
         const string PlayTimeAttribute = "PlayTime";
@@ -70,7 +70,7 @@ namespace GameInstancerNS
             Games = (from GameXML in Config.Descendants(AGameNode)
                      select new ConfigGameModel()
                      {
-                         ID = IntParseOrNull(GameXML.Attribute(IDNode).Value),
+                         ID = IntParseOrNull(GameXML.Attribute(IDAttribute).Value),
                          Name = GameXML.Attribute(NameAttribute)?.Value,
                          Path = GameXML.Attribute(PathAttribute)?.Value,
                          ImagePath = GameXML.Attribute(ImagePathAttribute)?.Value,
