@@ -18,7 +18,7 @@ namespace GameInstancerNS
         const string RootNode = "Games";
         const string AGameNode = "Game";
         const string AddtionalExeStartNode = "OptionalAddtionalExeStarts";
-        const string IDAttribute = "ID";
+        const string IDAttribute = "GUID";
         const string NameAttribute = "Name";
         const string PathAttribute = "Path";
         const string PlayTimeAttribute = "PlayTime";
@@ -37,12 +37,13 @@ namespace GameInstancerNS
         /// This is the getter interface implmentation. 
         /// It retrives the game via a string value
         /// </summary>
-        /// <param name="StartGameName">the name of the game</param>
+        /// <param name="Index"></param>
         /// <returns></returns>
-        public IGameModel this[string StartGameName]
+        public IGameModel this[string GUID]
         {
-            get {
-                return Games.Where(x => x.Name == StartGameName).FirstOrDefault();
+            get
+            {
+                return Games.Where(x => x.GUID == GUID).FirstOrDefault();
             }
         }
 
@@ -50,14 +51,11 @@ namespace GameInstancerNS
         /// This is the getter interface implmentation. 
         /// It retrives the game via a string value
         /// </summary>
-        /// <param name="Index"></param>
+        /// <param name="StartGameName">the name of the game</param>
         /// <returns></returns>
-        public IGameModel this[int Index]
+        public IGameModel GetGameByName(string StartGameName)
         {
-            get
-            {
-                return Games[Index];
-            }
+            return Games.Where(x => x.Name == StartGameName).FirstOrDefault();
         }
 
         public XMLGamesConfig(Stream Stream = null)
@@ -70,7 +68,7 @@ namespace GameInstancerNS
             Games = (from GameXML in Config.Descendants(AGameNode)
                      select new ConfigGameModel()
                      {
-                         ID = IntParseOrNull(GameXML.Attribute(IDAttribute).Value),
+                         GUID = GameXML.Attribute(IDAttribute)?.Value,
                          Name = GameXML.Attribute(NameAttribute)?.Value,
                          Path = GameXML.Attribute(PathAttribute)?.Value,
                          ImagePath = GameXML.Attribute(ImagePathAttribute)?.Value,
@@ -88,7 +86,7 @@ namespace GameInstancerNS
             //a trick to quickly convert to json when making the json config class test subject. Not really relavat to the code however.
             //string Result = JsonConvert.SerializeObject(Games);
 
-            if (Games.Any(x => x.ID == null || x.Path == null || x.PlayTime == null || x.IOptionalAddtionalExeStarts.Any(j => j.Path == null || j.Delay == null)))
+            if (Games.Any(x => x.GUID == null || x.Path == null || x.PlayTime == null || x.IOptionalAddtionalExeStarts.Any(j => j.Path == null || j.Delay == null)))
                 throw new Exception(NotSetError);
         }
 

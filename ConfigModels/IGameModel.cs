@@ -14,7 +14,7 @@ namespace GameInstancerNS
         /// <summary>
         /// the Databases ID or specified via the config file
         /// </summary>
-        int? ID { get; }
+        string GUID { get; }
         /// <summary>
         /// The Name of the game.
         /// </summary>

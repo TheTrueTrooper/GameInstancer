@@ -209,14 +209,14 @@ namespace GameInstancerNS
             //kill the exe if it has yet to end
             lock (PrimaryGameExe)
                 if(!PrimaryGameExe.HasExited)
-                    PrimaryGameExe.Kill();
+                    PrimaryGameExe?.Kill();
 
             //kill the optional exe's
             foreach (InstanceOptionalExe exe in OptionalExes)
             {
                 lock (OptionalExes)
                     if (!exe.OptionalExe.HasExited)
-                        exe.Kill();
+                        exe?.Kill();
             }
             //mark as dead and rest timers
             Timer.Stop();

@@ -18,14 +18,14 @@ namespace GameInstancerNS
         /// </summary>
         /// <param name="StartGameName"> the sting name of the game in config</param>
         /// <returns>the Game (config info)</returns>
-        IGameModel this[string StartGameName] { get; }
+        IGameModel GetGameByName(string GameName);
 
         /// <summary>
         /// an accessor to get the Game by entry number
         /// </summary>
         /// <param name="ID">it's number in the config list(based Database ID)</param>
         /// <returns>the Game (config info)</returns>
-        IGameModel this[int ID] { get; }
+        IGameModel this[string ID] { get; }
 
         /// <summary>
         /// Should get the list of games this sould be only implemented as a getter

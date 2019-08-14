@@ -18,19 +18,18 @@ namespace GameInstancerNS
 
         public List<IGameModel> Games { private set; get; } = new List<IGameModel>();
 
-        public IGameModel this[string StartGameName]
-        {
-            get {
-                return Games.Where(x => x.Name == StartGameName).FirstOrDefault();
-            }
-        }
 
-        public IGameModel this[int ID]
+        public IGameModel this[string GUID]
         {
             get
             {
-                return Games.Where(x => x.ID == ID).FirstOrDefault();
+                return Games.Where(x => x.GUID == GUID).FirstOrDefault();
             }
+        }
+
+        public IGameModel GetGameByName(string StartGameName)
+        {
+            return Games.Where(x => x.Name == StartGameName).FirstOrDefault();
         }
 
         public JSONGamesConfig(Stream Stream = null)
@@ -49,7 +48,7 @@ namespace GameInstancerNS
                     Games.Add(CGM);
             }
 
-            if (Games.Any(x => x.ID == null || x.Path == null || x.PlayTime == null || x.IOptionalAddtionalExeStarts.Any(j => j.Path == null || j.Delay == null)))
+            if (Games.Any(x => x.GUID == null || x.Path == null || x.PlayTime == null || x.IOptionalAddtionalExeStarts.Any(j => j.Path == null || j.Delay == null)))
                 throw new Exception(NotSetError);
         }
 

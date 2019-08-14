@@ -115,12 +115,14 @@ namespace GameInstancerNS
         {
             get
             {
-                lock (RunningGame)
+                if (RunningGame != null)
                 {
-                    if (RunningGame == null)
-                        return false;
-                    return RunningGame.IsAlive;
+                    lock (RunningGame)
+                    {
+                        return RunningGame.IsAlive;
+                    }
                 }
+                return false;
             }
         }
 
@@ -128,26 +130,27 @@ namespace GameInstancerNS
         /// Instances A game  by index with a defualt of the first game avaible
         /// </summary>
         /// <param name="GameNumberToStart">The index of the game in the config</param>
-        public void StartGame(object StartRequester, int GameNumberToStart = 0)
+        public void StartGame(object StartRequester, string GameGUIDToStart)
         {
-            GameIsStartingEvent.Invoke(this, new GameStartingEventArgs { GameName = Config[GameNumberToStart].Name, RequestingObj = StartRequester });
-            RunningGame = new InstanceGame(Config[GameNumberToStart]);
+            GameIsStartingEvent?.Invoke(this, new GameStartingEventArgs { GameName = Config[GameGUIDToStart].Name, RequestingObj = StartRequester });
+            RunningGame = new InstanceGame(Config[GameGUIDToStart]);
             RunningGame.GameHasEndedEvent += GameEndedEventChain;
             RunningGame.StartGame();
-            GameHasStartedEvent.Invoke(this, new GameStartedEventArgs { GameName = Config[GameNumberToStart].Name });
+            GameHasStartedEvent?.Invoke(this, new GameStartedEventArgs { GameName = Config[GameGUIDToStart].Name });
         }
 
         /// <summary>
         /// Instances A game by its name
         /// </summary>
         /// <param name="GameNumberToStart">The index of the game in the config</param>
-        public void StartGame(object StartRequester, string GameNameToStart)
+        public void StartGameByName(object StartRequester, string GameNameToStart)
         {
-            GameIsStartingEvent.Invoke(this, new GameStartingEventArgs { GameName = GameNameToStart, RequestingObj = StartRequester });
-            RunningGame = new InstanceGame(Config[GameNameToStart]);
+            IGameModel gameConfig = Config.GetGameByName(GameNameToStart);
+            GameIsStartingEvent?.Invoke(this, new GameStartingEventArgs { GameName = gameConfig.Name, RequestingObj = StartRequester });
+            RunningGame = new InstanceGame(gameConfig);
             RunningGame.GameHasEndedEvent += GameEndedEventChain;
             RunningGame.StartGame();
-            GameHasStartedEvent.Invoke(this, new GameStartedEventArgs { GameName = GameNameToStart });
+            GameHasStartedEvent?.Invoke(this, new GameStartedEventArgs { GameName = gameConfig.Name });
         }
 
         /// <summary>
@@ -157,7 +160,12 @@ namespace GameInstancerNS
         /// <param name="e"></param>
         private void GameEndedEventChain(object sender, GameEndedEventArgs e)
         {
-            GameHasEndedEvent.Invoke(sender, e);
+            try
+            {
+                GameHasEndedEvent?.Invoke(sender, e);
+            }
+            catch
+            {}
         }
 
         /// <summary>
@@ -165,9 +173,14 @@ namespace GameInstancerNS
         /// </summary>
         public void KillGame()
         {
-            lock(RunningGame)
-                RunningGame.Kill();
-            RunningGame = null;
+            try
+            {
+                lock (RunningGame)
+                RunningGame?.Kill();
+                RunningGame = null;
+            }
+            catch
+            { }
         }
 
         /// <summary>

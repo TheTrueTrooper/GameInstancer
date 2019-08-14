@@ -16,38 +16,38 @@ namespace GameInstancerNS
         /// <summary>
         /// the Databases ID or specified via the config file
         /// </summary>
-        [JsonProperty("ID")]
-        public int? ID { get; protected internal set; }
+        [JsonProperty("GUID")]
+        public string GUID { get; set; }
         /// <summary>
         /// The Name of the game.
         /// </summary>
         [JsonProperty("Name")]
-        public string Name { get; protected internal set; }
+        public string Name { get; set; }
         /// <summary>
         /// The Path of the game.
         /// </summary>
         [JsonProperty("Path")]
-        public string Path { get; protected internal set; }
+        public string Path { get; set; }
         /// <summary>
         /// The path to a display image for a game.
         /// </summary>
         [JsonProperty("ImagePath")]
-        public string ImagePath { get; protected internal set; }
+        public string ImagePath { get; set; }
         /// <summary>
         /// The Play time for a game.
         /// </summary>
         [JsonProperty("PlayTime")]
-        public ulong? PlayTime { get; protected internal set; }
+        public ulong? PlayTime { get; set; }
         /// <summary>
         /// The Cost to Play for a game.
         /// </summary>
         [JsonProperty("CostToPlay")]
-        public double? CostToPlay { get; protected internal set; }
+        public double? CostToPlay { get; set; }
         /// <summary>
         /// optional arguments to use when starting the game
         /// </summary>
         [JsonProperty("StartOptions")]
-        public string StartOptions { get; protected internal set; }
+        public string StartOptions { get; set; }
         /// <summary>
         /// The Optional Exes with a game
         /// </summary>
