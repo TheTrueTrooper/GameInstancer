@@ -1,0 +1,7 @@
+<Games>
+  <!-- An example Note PlayTime: is in milisecons -->
+	<Game GUID="1" Name="Phantom Breaker: Battle Grounds" ImagePath="PutPathToImageHere" Path="PutPathHere" PlayTime="5000" CostToPlay="0" StartOptions="" >
+    <!--Delay: this is the delay in milisecons for this process after if you timing aline not perfect thougth-->
+		<AddtionalExeStart Path="PutPathHere" Delay="0" StartOptions="" />
+	</Game>
+</Games>

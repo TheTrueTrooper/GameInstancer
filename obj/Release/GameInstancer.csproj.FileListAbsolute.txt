@@ -1,0 +1,11 @@
+C:\Users\Angelo's Tower PC\source\repos\GameStartStopService\GameInstancer\bin\Release\GameInstancerConfig.xml
+C:\Users\Angelo's Tower PC\source\repos\GameStartStopService\GameInstancer\bin\Release\GameInstancerConfig.json
+C:\Users\Angelo's Tower PC\source\repos\GameStartStopService\GameInstancer\bin\Release\GameInstancer.dll
+C:\Users\Angelo's Tower PC\source\repos\GameStartStopService\GameInstancer\bin\Release\GameInstancer.pdb
+C:\Users\Angelo's Tower PC\source\repos\GameStartStopService\GameInstancer\bin\Release\Newtonsoft.Json.dll
+C:\Users\Angelo's Tower PC\source\repos\GameStartStopService\GameInstancer\bin\Release\Newtonsoft.Json.xml
+C:\Users\Angelo's Tower PC\source\repos\GameStartStopService\GameInstancer\obj\Release\GameInstancer.csprojAssemblyReference.cache
+C:\Users\Angelo's Tower PC\source\repos\GameStartStopService\GameInstancer\obj\Release\GameInstancer.csproj.CoreCompileInputs.cache
+C:\Users\Angelo's Tower PC\source\repos\GameStartStopService\GameInstancer\obj\Release\GameInstancer.csproj.CopyComplete
+C:\Users\Angelo's Tower PC\source\repos\GameStartStopService\GameInstancer\obj\Release\GameInstancer.dll
+C:\Users\Angelo's Tower PC\source\repos\GameStartStopService\GameInstancer\obj\Release\GameInstancer.pdb

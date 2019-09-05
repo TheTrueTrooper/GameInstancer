@@ -1,0 +1,19 @@
+  [
+    {
+      "GUID": 1,
+      "Name": "Phantom Breaker: Battle Grounds",
+      "ImagePath": "PutPathToImageHere",
+      "Path": "PutPathHere",
+      "PlayTime": "5000",
+      "CostToPlay": "45",
+      "StartOptions": "",
+      "AddtionalExeStart": [
+        {
+          "Path": "PutPathHere",
+          "Delay": "0",
+          "StartOptions": ""
+        }
+      ]
+    }
+  ]
+
